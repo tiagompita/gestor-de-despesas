@@ -1,12 +1,8 @@
 # Gestor de Despesas Mensais
 
-Sabes aquela pilha de faturas da água, da luz, da internet, os talões do
-supermercado, os bilhetes de comboio… e a conversa de fim de mês sobre quem deve
-quanto a quem? Este programa trata disso.
-
-Dás-lhe as faturas e ele devolve-te uma folha de Excel arrumada por ano e por mês,
-com tudo somado. Se partilhas casa, ainda faz as contas de quanto paga cada pessoa,
-mês a mês, conforme quem lá morava. Se vives sozinho, mostra-te só as tuas despesas.
+Programa que lê faturas e regista as despesas num mapa anual em Excel, organizado
+por mês. Numa casa partilhada, divide as contas da casa pelas pessoas que lá
+moravam em cada mês. Também pode ser usado só para as despesas de uma pessoa.
 
 ## O que ele lê
 
@@ -14,16 +10,15 @@ mês a mês, conforme quem lá morava. Se vives sozinho, mostra-te só as tuas d
 - **fotografias** de talões, tiradas com o telemóvel;
 - o ficheiro que se descarrega do **portal e-fatura** das Finanças.
 
-Não precisas de escrever nada à mão. Ele percebe sozinho de quem é cada fatura,
-quanto custou e a que mês pertence. Quando não percebe, diz-te, e resolves com
-dois cliques.
+Para cada fatura, identifica o emitente, o valor e o mês. As que não consegue
+ler ficam numa lista no programa, para lhes dares o valor à mão.
 
 ## Começar
 
-1. Instala o **Python**, o motor por baixo do programa:
+1. Instala o **Python** 3.11 ou mais recente:
    [python.org/downloads](https://www.python.org/downloads/).
    No Windows, na primeira janela do instalador, marca
-   **«Add Python to PATH»**. É o passo que mais gente esquece.
+   **«Add Python to PATH»**.
 2. Descarrega o **`Despesas-Mensais.zip`** da
    [versão mais recente](https://github.com/tiagompita/gestor-de-despesas/releases/latest)
    e extrai-o para uma pasta à tua escolha.
@@ -31,30 +26,28 @@ dois cliques.
    - no **Windows**, dois cliques em `executar_despesas_win.bat`;
    - no **Mac** ou no **Linux**, corre `./executar_despesas.sh` num terminal.
 
-Da primeira vez demora cerca de um minuto a preparar-se. Depois abre um pequeno
-assistente que te pergunta o teu nome, se partilhas casa, e que despesas tens.
+Da primeira vez demora cerca de um minuto a preparar-se e abre um assistente que
+pergunta o teu nome, se partilhas casa e que despesas tens.
 
-A partir daí é sempre igual: pões as faturas na pasta `input_faturas`, carregas em
-**Atualizar Excel**, e está feito. O botão do lado abre o mapa.
+Depois disso: pões as faturas na pasta `input_faturas` e carregas em
+**Atualizar Excel**. O botão **Abrir o Excel** abre o mapa.
 
 ## Versões novas
 
-Não tens de vir aqui buscá-las. Quando houver uma, aparece um **●** no botão
-**⚙ Definições**. Lá dentro, em **Atualizações**, carregas em
-**Instalar a versão nova**. As tuas faturas, o mapa e a configuração ficam como
-estavam.
+Quando há uma versão nova, aparece um **●** no botão **⚙ Definições**. Instala-se
+em **⚙ Definições › Atualizações › Instalar a versão nova**. As faturas, o mapa e a
+configuração não são alterados.
 
 ---
 
 ## Guardar o mapa no Google Drive
 
-Isto é **opcional**. Sem isto o programa funciona igual. Mas, se quiseres, no fim
-de cada atualização ele envia o mapa e as faturas para uma pasta do teu Google
-Drive. Assim tens tudo acessível no telemóvel, e uma cópia de segurança. Só envia o
-que mudou, por isso é rápido.
+Opcional e desligado por omissão. Quando está ligado, no fim de cada atualização
+o programa envia o mapa e as faturas arquivadas para uma pasta do teu Google
+Drive. Só envia o que mudou desde o último envio.
 
-Quem faz o envio é um programinha à parte, o **rclone**. Configura-se uma vez e
-nunca mais pensas nele. São três passos.
+O envio é feito pelo **rclone**, um programa à parte. Configura-se uma vez, em três
+passos.
 
 ### 1. Instalar o rclone
 
@@ -75,9 +68,9 @@ rclone config create upload_despesas_googledrive drive scope=drive
 > No Windows, troca `rclone` pelo caminho completo do `rclone.exe` que ficou dentro
 > de `ferramentas`.
 
-Abre-se o navegador, entras na tua conta Google e carregas em **Permitir**. Já está.
+Abre-se o navegador. Entra na tua conta Google e carrega em **Permitir**.
 
-Se quiseres confirmar, este comando tem de mostrar as pastas do teu Drive:
+Para confirmar, este comando tem de mostrar as pastas do teu Drive:
 
 ```
 rclone lsd upload_despesas_googledrive:
@@ -91,8 +84,7 @@ grava. Na próxima atualização, o mapa aparece no teu Drive, numa pasta
 
 ### E se quisermos todos a mesma pasta?
 
-Numa casa partilhada dá jeito ter os mapas de toda a gente no mesmo sítio. A forma
-segura é esta:
+Para guardar os mapas de várias pessoas na mesma pasta:
 
 1. Uma pessoa cria uma pasta no Drive e partilha-a com as outras, como
    **Editor**.
@@ -105,16 +97,15 @@ segura é esta:
    rclone config create upload_despesas_googledrive drive scope=drive root_folder_id=O_CODIGO
    ```
 
-Cada um entra com a sua própria conta Google, e os mapas ficam todos lado a lado
-na pasta partilhada.
+Cada pessoa usa a sua conta Google, e cada mapa fica numa subpasta com o nome da
+pessoa, dentro da pasta partilhada.
 
-> **Uma regra importante:** não envies a ninguém o ficheiro `rclone.conf`, nem
-> aceites o de outra pessoa. Quem o tem entra na conta Google de quem o criou, com
-> acesso a tudo, e não só à pasta das despesas.
+> **Não partilhes o ficheiro `rclone.conf`.** Dá acesso total à conta Google de
+> quem o criou, e não só à pasta das despesas.
 
 ### Se não estiver a enviar
 
-O programa diz-te sempre porquê, no fim de cada atualização:
+O motivo aparece no fim de cada atualização:
 
 - **«O rclone não está instalado»:** falta o passo 1.
 - **«…o rclone do sistema não conhece o remote…»:** o passo 2 ficou com outro nome.
@@ -123,5 +114,5 @@ O programa diz-te sempre porquê, no fim de cada atualização:
 - **Um erro de autorização do Google:** a ligação expirou. Corre
   `rclone config reconnect upload_despesas_googledrive:` e volta a entrar.
 
-E, se um dia o programa estiver para apagar muitos ficheiros do Drive de uma vez,
-ele pergunta-te primeiro.
+Antes de apagar mais de 20 ficheiros do Drive de uma vez, o programa pede
+confirmação.
