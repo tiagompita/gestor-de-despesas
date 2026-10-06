@@ -1,115 +1,127 @@
 # Gestor de Despesas Mensais
 
-Lê as tuas faturas (PDF, fotografias de talões, o CSV do portal e-fatura) e escreve
-um mapa anual em Excel. Numa casa partilhada, divide as contas da casa por quem lá
-morava em cada mês.
+Sabes aquela pilha de faturas da água, da luz, da internet, os talões do
+supermercado, os bilhetes de comboio… e a conversa de fim de mês sobre quem deve
+quanto a quem? Este programa trata disso.
 
-Este repositório tem só as **versões publicadas** do programa. Não precisas de conta
-no GitHub para as descarregar.
+Dás-lhe as faturas e ele devolve-te uma folha de Excel arrumada por ano e por mês,
+com tudo somado. Se partilhas casa, ainda faz as contas de quanto paga cada pessoa,
+mês a mês, conforme quem lá morava. Se vives sozinho, mostra-te só as tuas despesas.
 
-## Instalar
+## O que ele lê
 
-1. Abre a [última versão](https://github.com/tiagompita/gestor-de-despesas/releases/latest)
-   e descarrega o **`Despesas-Mensais.zip`**.
-2. Extrai-o para uma pasta à tua escolha.
-3. Arranca o programa:
-   - **Windows:** duplo clique em `executar_despesas_win.bat`;
-   - **Linux e macOS:** `./executar_despesas.sh` num terminal.
+- **PDFs** de faturas, como os que chegam por e-mail;
+- **fotografias** de talões, tiradas com o telemóvel;
+- o ficheiro que se descarrega do **portal e-fatura** das Finanças.
 
-Precisas do Python 3.11 ou mais recente ([python.org](https://www.python.org/downloads/)).
-No Windows, marca **«Add Python to PATH»** ao instalar. Na primeira vez o programa
-prepara o ambiente sozinho (cerca de um minuto) e abre o assistente de configuração.
+Não precisas de escrever nada à mão. Ele percebe sozinho de quem é cada fatura,
+quanto custou e a que mês pertence. Quando não percebe, diz-te, e resolves com
+dois cliques.
 
-O `LEIA-ME.txt`, dentro do zip, explica o resto.
+## Começar
 
-## Atualizar
+1. Instala o **Python**, o motor por baixo do programa:
+   [python.org/downloads](https://www.python.org/downloads/).
+   No Windows, na primeira janela do instalador, marca
+   **«Add Python to PATH»**. É o passo que mais gente esquece.
+2. Descarrega o **`Despesas-Mensais.zip`** da
+   [versão mais recente](https://github.com/tiagompita/gestor-de-despesas/releases/latest)
+   e extrai-o para uma pasta à tua escolha.
+3. Abre o programa:
+   - no **Windows**, dois cliques em `executar_despesas_win.bat`;
+   - no **Mac** ou no **Linux**, corre `./executar_despesas.sh` num terminal.
 
-No programa: **⚙ Definições › Atualizações › Instalar a versão nova**. A
-configuração, as faturas e o mapa não são tocados.
+Da primeira vez demora cerca de um minuto a preparar-se. Depois abre um pequeno
+assistente que te pergunta o teu nome, se partilhas casa, e que despesas tens.
+
+A partir daí é sempre igual: pões as faturas na pasta `input_faturas`, carregas em
+**Atualizar Excel**, e está feito. O botão do lado abre o mapa.
+
+## Versões novas
+
+Não tens de vir aqui buscá-las. Quando houver uma, aparece um **●** no botão
+**⚙ Definições**. Lá dentro, em **Atualizações**, carregas em
+**Instalar a versão nova**. As tuas faturas, o mapa e a configuração ficam como
+estavam.
 
 ---
 
-## Enviar o mapa para o Google Drive (opcional)
+## Guardar o mapa no Google Drive
 
-O programa pode enviar o mapa e as faturas arquivadas para uma pasta do Google
-Drive no fim de cada atualização. Só envia o que mudou. **Vem desligado**: sem
-isto o programa funciona igual, só não envia nada.
+Isto é **opcional**. Sem isto o programa funciona igual. Mas, se quiseres, no fim
+de cada atualização ele envia o mapa e as faturas para uma pasta do teu Google
+Drive. Assim tens tudo acessível no telemóvel, e uma cópia de segurança. Só envia o
+que mudou, por isso é rápido.
 
-O envio é feito pelo [rclone](https://rclone.org/), um programa à parte. Configura-se
-uma vez.
+Quem faz o envio é um programinha à parte, o **rclone**. Configura-se uma vez e
+nunca mais pensas nele. São três passos.
 
 ### 1. Instalar o rclone
 
-| Sistema | Como |
-|---|---|
-| Windows | Descarrega o zip «Windows – Intel/AMD – 64 Bit» de [rclone.org/downloads](https://rclone.org/downloads/). Dentro da pasta do programa, cria uma pasta `ferramentas` e extrai lá o zip: fica `ferramentas\rclone-v1.xx-windows-amd64\rclone.exe`. O programa encontra-o aí sozinho. |
-| macOS | `brew install rclone` |
-| Linux | `sudo apt install rclone` |
+- **Windows:** em [rclone.org/downloads](https://rclone.org/downloads/), descarrega
+  a versão **«Windows – Intel/AMD – 64 Bit»**. Dentro da pasta do programa, cria uma
+  pasta chamada `ferramentas` e extrai lá o zip. O programa encontra-o sozinho.
+- **Mac:** `brew install rclone`
+- **Linux:** `sudo apt install rclone`
 
-### 2. Ligar o rclone ao teu Google Drive
+### 2. Dar ao rclone acesso ao teu Drive
 
-Num terminal, na pasta do programa (no Windows, usa o caminho do `rclone.exe` do
-passo anterior em vez de `rclone`):
+Abre um terminal na pasta do programa e escreve:
 
 ```
 rclone config create upload_despesas_googledrive drive scope=drive
 ```
 
-Abre-se o navegador. Entra na tua conta Google e autoriza o acesso. No fim, o
-terminal diz que a configuração foi guardada.
+> No Windows, troca `rclone` pelo caminho completo do `rclone.exe` que ficou dentro
+> de `ferramentas`.
 
-O nome `upload_despesas_googledrive` é o que o programa espera. Se escolheres outro,
-escreve-o em **⚙ Definições › Remote rclone**.
+Abre-se o navegador, entras na tua conta Google e carregas em **Permitir**. Já está.
 
-Para confirmar que ficou a funcionar:
+Se quiseres confirmar, este comando tem de mostrar as pastas do teu Drive:
 
 ```
 rclone lsd upload_despesas_googledrive:
 ```
 
-Tem de listar as pastas do teu Drive.
-
 ### 3. Ligar o envio no programa
 
 Em **⚙ Definições**, liga **«Enviar o mapa e os documentos para o Google Drive»** e
-grava. Na atualização seguinte, o mapa vai para a pasta
-**`Despesas/<o teu nome>`** do teu Drive. O nome da pasta de cima muda-se em
-**⚙ Definições › Pasta destino Cloud**.
+grava. Na próxima atualização, o mapa aparece no teu Drive, numa pasta
+**`Despesas`**, dentro de uma subpasta com o teu nome.
 
-### Uma pasta comum para a casa toda
+### E se quisermos todos a mesma pasta?
 
-Se quiserem que os mapas de todos fiquem numa só pasta, **não partilhem o ficheiro
-de configuração do rclone**: ele dá acesso total à conta Google de quem o criou.
-Em vez disso:
+Numa casa partilhada dá jeito ter os mapas de toda a gente no mesmo sítio. A forma
+segura é esta:
 
-1. Quem tem a pasta partilha-a no Google Drive com cada pessoa, como **Editor**.
-2. Cada pessoa abre a pasta no navegador e copia o identificador do endereço, a
-   parte depois de `/folders/`.
-3. Cada pessoa liga o rclone à **sua própria** conta, apontado para essa pasta:
+1. Uma pessoa cria uma pasta no Drive e partilha-a com as outras, como
+   **Editor**.
+2. Cada pessoa abre essa pasta no navegador e copia o código que aparece no
+   endereço, depois de `/folders/`.
+3. No passo 2, em vez do comando de cima, cada pessoa usa este, com o código no
+   fim:
 
    ```
-   rclone config create upload_despesas_googledrive drive scope=drive root_folder_id=O_IDENTIFICADOR
+   rclone config create upload_despesas_googledrive drive scope=drive root_folder_id=O_CODIGO
    ```
 
-Os mapas ficam em `<pasta partilhada>/Despesas/<nome de cada um>`, cada um na sua
-subpasta.
+Cada um entra com a sua própria conta Google, e os mapas ficam todos lado a lado
+na pasta partilhada.
 
-### Onde fica a configuração do rclone
+> **Uma regra importante:** não envies a ninguém o ficheiro `rclone.conf`, nem
+> aceites o de outra pessoa. Quem o tem entra na conta Google de quem o criou, com
+> acesso a tudo, e não só à pasta das despesas.
 
-O `rclone config create` guarda-a no sítio habitual do rclone
-(`rclone config file` diz qual), e o programa usa-a daí. Se puseres um ficheiro
-`rclone.conf` na pasta do programa, é esse que manda: útil para levar a pasta para
-outro computador já configurada. **Nunca o partilhes nem o publiques.**
+### Se não estiver a enviar
 
-### Se o envio não funcionar
+O programa diz-te sempre porquê, no fim de cada atualização:
 
-O programa diz no fim de cada atualização porque é que não enviou:
+- **«O rclone não está instalado»:** falta o passo 1.
+- **«…o rclone do sistema não conhece o remote…»:** o passo 2 ficou com outro nome.
+  Usa exatamente `upload_despesas_googledrive`, ou escreve o nome que escolheste em
+  **⚙ Definições › Remote rclone**.
+- **Um erro de autorização do Google:** a ligação expirou. Corre
+  `rclone config reconnect upload_despesas_googledrive:` e volta a entrar.
 
-| Mensagem | O que fazer |
-|---|---|
-| «O rclone não está instalado» | Volta ao passo 1 |
-| «Falta o .rclone.conf (ou rclone.conf) nesta pasta, e o rclone do sistema não conhece o remote» | O nome do remote em ⚙ Definições não é o que criaste no passo 2 |
-| Um erro de autorização do Google | A ligação expirou. Corre `rclone config reconnect upload_despesas_googledrive:` |
-
-Antes de apagar mais de 20 ficheiros da pasta do Drive de uma vez, o programa
-pergunta numa janela.
+E, se um dia o programa estiver para apagar muitos ficheiros do Drive de uma vez,
+ele pergunta-te primeiro.
