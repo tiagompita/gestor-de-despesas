@@ -24,10 +24,17 @@ ler ficam numa lista no programa, para lhes dares o valor à mão.
    Python, o instalador explica o que é e instala-o. Não pede administrador.
 3. No fim fica um atalho **Gestor de Despesas** no menu Iniciar.
 
-Da primeira vez, o Windows mostra **«O Windows protegeu o seu PC»**. Aparece
-porque o instalador não tem uma assinatura digital paga, e não porque o Windows
-tenha encontrado algum problema nele. Carrega em **Mais informações** e depois
-em **Executar mesmo assim**.
+#### Vais ver este aviso — é normal
+
+Ao abrires o instalador pela primeira vez, o Windows mostra isto:
+
+<img src="imagens/aviso-do-windows.png" alt="Aviso azul do Windows: «O Windows protegeu o computador», com a ligação «Mais informações» e o botão «Não executar»" width="420">
+
+Aparece porque o instalador não tem uma assinatura digital paga, e não porque o
+Windows tenha encontrado algum problema nele. Para continuar:
+
+1. Carrega em **Mais informações** (não em «Não executar»).
+2. Aparece o botão **Executar mesmo assim**: carrega nele.
 
 **O ficheiro é seguro:** a versão 1.20 do instalador foi analisada por dezenas
 de antivírus no VirusTotal —
