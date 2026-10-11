@@ -2,7 +2,8 @@
 
 Programa que lê faturas e regista as despesas num mapa anual em Excel, organizado
 por mês. Numa casa partilhada, divide as contas da casa pelas pessoas que lá
-moravam em cada mês. Também pode ser usado só para as despesas de uma pessoa.
+moravam em cada mês. Também pode ser usado só para as despesas de uma pessoa, ou
+para um pequeno negócio (ganhos, agenda e lucro).
 
 ## O que ele lê
 
@@ -15,28 +16,64 @@ ler ficam numa lista no programa, para lhes dares o valor à mão.
 
 ## Começar
 
+### Windows
+
+1. Descarrega o **`Instalar-Gestor-de-Despesas-<versão>.exe`** da
+   [versão mais recente](https://github.com/tiagompita/gestor-de-despesas/releases/latest).
+2. Faz duplo clique nele. Não precisas de instalar mais nada antes: se faltar o
+   Python, o instalador explica o que é e instala-o. Não pede administrador.
+3. No fim fica um atalho **Gestor de Despesas** no menu Iniciar.
+
+Da primeira vez, o Windows mostra **«O Windows protegeu o seu PC»**. Aparece
+porque o instalador não tem uma assinatura digital paga, e não porque o Windows
+tenha encontrado algum problema nele. Carrega em **Mais informações** e depois
+em **Executar mesmo assim**.
+
+**O ficheiro é seguro:** a versão 1.20 do instalador foi analisada por dezenas
+de antivírus no VirusTotal —
+[ver a análise](https://www.virustotal.com/gui/file/c11c9081112567c62a39e1c9efcb18dcc1886e05200c0c12f171cbde2102d86c).
+Para confirmares que o ficheiro que descarregaste é esse mesmo, abre o
+PowerShell na pasta dele e escreve:
+
+```
+Get-FileHash .\Instalar-Gestor-de-Despesas-1.20.exe
+```
+
+O resultado tem de ser
+`C11C9081112567C62A39E1C9EFCB18DCC1886E05200C0C12F171CBDE2102D86C`.
+
+Para desinstalar, há **Desinstalar o Gestor de Despesas** no menu Iniciar. As tuas
+faturas e o teu mapa só são apagados se responderes que sim.
+
+### Mac e Linux
+
 1. Instala o **Python** 3.11 ou mais recente:
-   [python.org/downloads](https://www.python.org/downloads/).
-   No Windows, na primeira janela do instalador, marca
-   **«Add Python to PATH»**.
+   [python.org/downloads](https://www.python.org/downloads/) (no Mac também
+   `brew install python python-tk`; no Linux,
+   `sudo apt install python3 python3-venv python3-tk`).
 2. Descarrega o **`Despesas-Mensais.zip`** da
    [versão mais recente](https://github.com/tiagompita/gestor-de-despesas/releases/latest)
    e extrai-o para uma pasta à tua escolha.
-3. Abre o programa:
-   - no **Windows**, dois cliques em `executar_despesas_win.bat`;
-   - no **Mac** ou no **Linux**, corre `./executar_despesas.sh` num terminal.
+3. Abre um terminal nessa pasta e corre `./executar_despesas.sh`.
 
-Da primeira vez demora cerca de um minuto a preparar-se e abre um assistente que
-pergunta o teu nome, se partilhas casa e que despesas tens.
+### Depois de instalar
 
-Depois disso: pões as faturas na pasta `input_faturas` e carregas em
-**Atualizar Excel**. O botão **Abrir o Excel** abre o mapa.
+Da primeira vez abre um assistente que pergunta o teu nome, se partilhas casa e
+que despesas tens.
+
+Depois disso: pões as faturas na pasta `faturas_pessoal` (o botão
+**📂 Pasta das faturas** abre-a) e carregas em **Atualizar Excel**. O botão
+**Abrir o Excel** abre o mapa.
 
 ## Versões novas
 
 Quando há uma versão nova, aparece um **●** no botão **⚙ Definições**. Instala-se
 em **⚙ Definições › Atualizações › Instalar a versão nova**. As faturas, o mapa e a
 configuração não são alterados.
+
+Os teus dados são também copiados, sempre que abres o programa, para
+`Documentos\Gestor de Despesas\backup`. Em **⚙ Definições › Backup** escolhes um
+dia para os repor.
 
 ---
 
@@ -51,22 +88,23 @@ passos.
 
 ### 1. Instalar o rclone
 
-- **Windows:** em [rclone.org/downloads](https://rclone.org/downloads/), descarrega
-  a versão **«Windows – Intel/AMD – 64 Bit»**. Dentro da pasta do programa, cria uma
-  pasta chamada `ferramentas` e extrai lá o zip. O programa encontra-o sozinho.
+- **Windows:** em **⚙ Definições**, liga **«Enviar o mapa e os documentos para o
+  Google Drive»**. Se faltar o rclone, abre-se uma caixa com o botão
+  **Instalar agora**, que o descarrega do site oficial e o confere. No fim, a
+  caixa mostra o comando do passo 2, com um botão **Copiar o comando**.
 - **Mac:** `brew install rclone`
 - **Linux:** `sudo apt install rclone`
 
 ### 2. Dar ao rclone acesso ao teu Drive
 
-Abre um terminal na pasta do programa e escreve:
+Abre um terminal e escreve:
 
 ```
 rclone config create upload_despesas_googledrive drive scope=drive
 ```
 
-> No Windows, troca `rclone` pelo caminho completo do `rclone.exe` que ficou dentro
-> de `ferramentas`.
+> No Windows, usa o comando que a caixa do passo 1 te deu: é este, com o caminho
+> completo do `rclone.exe`.
 
 Abre-se o navegador. Entra na tua conta Google e carrega em **Permitir**.
 
@@ -78,9 +116,9 @@ rclone lsd upload_despesas_googledrive:
 
 ### 3. Ligar o envio no programa
 
-Em **⚙ Definições**, liga **«Enviar o mapa e os documentos para o Google Drive»** e
-grava. Na próxima atualização, o mapa aparece no teu Drive, numa pasta
-**`Despesas`**, dentro de uma subpasta com o teu nome.
+Em **⚙ Definições**, confirma que **«Enviar o mapa e os documentos para o Google
+Drive»** está ligado e grava. Na próxima atualização, o mapa aparece no teu Drive,
+numa pasta **`Despesas`**, dentro de uma subpasta com o teu nome.
 
 ### E se quisermos todos a mesma pasta?
 
