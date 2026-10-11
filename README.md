@@ -36,9 +36,9 @@ Windows tenha encontrado algum problema nele. Para continuar:
 1. Carrega em **Mais informações** (não em «Não executar»).
 2. Aparece o botão **Executar mesmo assim**: carrega nele.
 
-**O ficheiro é seguro:** a versão 1.20 do instalador foi analisada por dezenas
+**O ficheiro é seguro:** a versão 1.21 do instalador foi analisada por dezenas
 de antivírus no VirusTotal —
-[ver a análise](https://www.virustotal.com/gui/file/c11c9081112567c62a39e1c9efcb18dcc1886e05200c0c12f171cbde2102d86c).
+[ver a análise](https://www.virustotal.com/gui/file/b8eab52a615d431086fd283a9c96ebf5db2fd76a267c84f8ad1cd9d36aa46203).
 Para confirmares que o ficheiro que descarregaste é o publicado, abre o
 PowerShell na pasta dele e escreve (com o número da versão que descarregaste):
 
