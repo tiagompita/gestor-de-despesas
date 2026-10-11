@@ -39,15 +39,15 @@ Windows tenha encontrado algum problema nele. Para continuar:
 **O ficheiro é seguro:** a versão 1.20 do instalador foi analisada por dezenas
 de antivírus no VirusTotal —
 [ver a análise](https://www.virustotal.com/gui/file/c11c9081112567c62a39e1c9efcb18dcc1886e05200c0c12f171cbde2102d86c).
-Para confirmares que o ficheiro que descarregaste é esse mesmo, abre o
-PowerShell na pasta dele e escreve:
+Para confirmares que o ficheiro que descarregaste é o publicado, abre o
+PowerShell na pasta dele e escreve (com o número da versão que descarregaste):
 
 ```
-Get-FileHash .\Instalar-Gestor-de-Despesas-1.20.exe
+Get-FileHash .\Instalar-Gestor-de-Despesas-<versão>.exe
 ```
 
-O resultado tem de ser
-`C11C9081112567C62A39E1C9EFCB18DCC1886E05200C0C12F171CBDE2102D86C`.
+O resultado tem de ser igual à linha `SHA256:` da
+[página da versão](https://github.com/tiagompita/gestor-de-despesas/releases/latest).
 
 Para desinstalar, há **Desinstalar o Gestor de Despesas** no menu Iniciar. As tuas
 faturas e o teu mapa só são apagados se responderes que sim.
